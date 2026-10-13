@@ -1,0 +1,4 @@
+NAME                       READY   STATUS    RESTARTS   AGE   IP            NODE         NOMINATED NODE   READINESS GATES
+entrega-7bd755d889-hclqs   1/1     Running   0          5s    10.244.0.16   devops-k8s   <none>           <none>
+entrega-7bd755d889-k5x62   1/1     Running   0          10s   10.244.0.15   devops-k8s   <none>           <none>
+entrega-7bd755d889-l4nnq   1/1     Running   0          16s   10.244.0.14   devops-k8s   <none>           <none>

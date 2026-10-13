@@ -1,0 +1,5 @@
+﻿NAME                       READY   STATUS      RESTARTS   AGE
+entrega-5fc7b475c8-5tk7x   1/1     Running     0          6s
+entrega-5fc7b475c8-6z5rl   1/1     Running     0          13s
+entrega-5fc7b475c8-wx4cp   1/1     Running     0          21s
+entrega-77dbb6bb67-64pbp   0/1     Completed   0          60s

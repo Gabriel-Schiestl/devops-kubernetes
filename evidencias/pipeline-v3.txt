@@ -1,0 +1,92 @@
++ C:\Program Files\Docker\Docker\resources\bin\docker.EXE info
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s status
++ C:\Users\notho\AppData\Local\Programs\Python\Python312\python.exe -m unittest discover -s tests -v
+test_broken_alive (test_app.AppTests.test_broken_alive) ... pod=p version=quebrada "GET /healthz HTTP/1.1" 200 -
+ok
+test_broken_api (test_app.AppTests.test_broken_api) ... pod=p version=quebrada "GET /api/status HTTP/1.1" 503 -
+ok
+test_broken_readiness (test_app.AppTests.test_broken_readiness) ... pod=p version=quebrada "GET /readyz HTTP/1.1" 503 -
+ok
+test_html_escaping (test_app.AppTests.test_html_escaping) ... pod=<pod> version=v1 "GET / HTTP/1.1" 200 -
+ok
+test_readiness_healthy (test_app.AppTests.test_readiness_healthy) ... pod=p version=v1 "GET /readyz HTTP/1.1" 200 -
+ok
+test_status_v1 (test_app.AppTests.test_status_v1) ... pod=pod-1 version=v1 "GET /api/status HTTP/1.1" 200 -
+ok
+test_status_v2 (test_app.AppTests.test_status_v2) ... pod=pod-2 version=v2 "GET /api/status HTTP/1.1" 200 -
+ok
+test_unknown (test_app.AppTests.test_unknown) ... pod=p version=v1 "GET /inexistente HTTP/1.1" 404 -
+ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.284s
+
+OK
++ C:\Program Files\Docker\Docker\resources\bin\docker.EXE build --build-arg APP_VERSION=v3 -t entrega-local:v3 .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 287B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 73B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 56B done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#5 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+#5 DONE 0.0s
+
+#6 [2/3] WORKDIR /app
+#6 CACHED
+
+#7 [3/3] COPY app/main.py /app/main.py
+#7 CACHED
+
+#8 exporting to image
+#8 exporting layers done
+#8 exporting manifest sha256:5de5e7fe8c54a24303deda4102ee2cb5234eab7981c05a372808b81ba88204c7 0.0s done
+#8 exporting config sha256:563632e329cb69118316c33755510bf6f236457fca4ed1dd25e8462465f6a0bd 0.0s done
+#8 exporting attestation manifest sha256:ce084879fe695b911066d79a4429845b9f6277bdebb117b957a0198de78c9f93 0.0s done
+#8 exporting manifest list sha256:db0383feddde4a40d22390f8bd47148f2edcdb4c743dce9bc1c5ababebde93c8 0.0s done
+#8 naming to docker.io/library/entrega-local:v3 done
+#8 unpacking to docker.io/library/entrega-local:v3 done
+#8 DONE 0.1s
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s image load entrega-local:v3
++ C:\Users\notho\AppData\Local\Programs\Python\Python312\python.exe scripts/render.py v3 --replicas 3 --output build/deployment.yaml
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s kubectl -- --context=devops-k8s --namespace=aula-k8s apply -f k8s/namespace.yaml
+namespace/aula-k8s unchanged
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s kubectl -- --context=devops-k8s --namespace=aula-k8s apply -f k8s/configmap.yaml
+configmap/entrega-config unchanged
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s kubectl -- --context=devops-k8s --namespace=aula-k8s apply -f k8s/service.yaml
+service/entrega unchanged
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s kubectl -- --context=devops-k8s --namespace=aula-k8s apply -f build/deployment.yaml
+deployment.apps/entrega configured
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s kubectl -- --context=devops-k8s --namespace=aula-k8s rollout status deployment/entrega --timeout=120s
+Waiting for deployment "entrega" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 2 out of 3 new replicas have been updated...
+Waiting for deployment "entrega" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "entrega" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "entrega" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "entrega" rollout to finish: 1 old replicas are pending termination...
+deployment "entrega" successfully rolled out
++ C:\Users\notho\AppData\Local\Programs\Python\Python312\python.exe scripts/smoke.py http://127.0.0.1:18080 --version v3 --output evidencias/status-v3.json
+{"version": "v3", "message": "Entrega configurada pelo grupo.", "pod": "entrega-7bd755d889-l4nnq", "ready": true}
+SMOKE OK
++ C:\Program Files\Kubernetes\Minikube\minikube.EXE -p devops-k8s kubectl -- --context=devops-k8s --namespace=aula-k8s get pods -l app=entrega -o wide
++ C:\Program Files\Docker\Docker\resources\bin\docker.EXE image inspect entrega-local:v3
+Pipeline concluida: v3, replicas=3

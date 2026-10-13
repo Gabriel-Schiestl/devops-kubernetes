@@ -1,0 +1,40 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 287B done
+#1 DONE 0.0s
+
+#2 [auth] library/python:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 DONE 1.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 73B done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 56B done
+#5 DONE 0.0s
+
+#6 [1/3] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#6 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+#6 DONE 0.0s
+
+#7 [2/3] WORKDIR /app
+#7 CACHED
+
+#8 [3/3] COPY app/main.py /app/main.py
+#8 CACHED
+
+#9 exporting to image
+#9 exporting layers done
+#9 exporting manifest sha256:75beb810be93bd36ae03bb17e4e0da694c1d4b1711fdeb8182d039383c6384a2 0.0s done
+#9 exporting config sha256:a8578a248ddbeaf388e424fd66ef537146e7720c229ed29910703adf09cc5649 0.0s done
+#9 exporting attestation manifest sha256:df5edd6b5cc0d8c03a02c496e3090717d53dd130d7770d2fa54b6e8f30f7587c
+#9 exporting attestation manifest sha256:df5edd6b5cc0d8c03a02c496e3090717d53dd130d7770d2fa54b6e8f30f7587c 0.0s done
+#9 exporting manifest list sha256:e6b969e0419083d199dfe7f57527fb855c9c9665441012a93f04e58e11c84e28 0.0s done
+#9 naming to docker.io/library/entrega-local:v2 done
+#9 unpacking to docker.io/library/entrega-local:v2 0.0s done
+#9 DONE 0.2s
